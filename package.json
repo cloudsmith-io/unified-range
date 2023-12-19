@@ -1,7 +1,7 @@
 {
   "name": "unified-range",
   "version": "1.0.0",
-  "description": "Port of the python unified-range package",
+  "description": "Port of the python unified-range package that converts input semver ranges to a uniform model, and the other way around, providing objects that are easier to use programmatically.",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"

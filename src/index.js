@@ -8,7 +8,7 @@ const { UnifiedVersionRange } = require("./models.js");
  */
 function fromSemver(semverSpec) {
   const verRng = utils.createFromSemver(semverSpec);
-  return String(verRng);
+  return verRng.toString();
 }
 
 /**
@@ -17,8 +17,7 @@ function fromSemver(semverSpec) {
  * @return {string} semver
  */
 function toSemver(spec) {
-  const semver = utils.transformToSemver(spec, " ");
-  return semver;
+  return utils.transformToSemver(spec, " ");
 }
 
 /**
@@ -29,8 +28,7 @@ function toSemver(spec) {
  * @return {string} semver
  */
 function toSemverCommaSeparated(spec) {
-  const semver = utils.transformToSemver(spec, ", ");
-  return semver;
+  return utils.transformToSemver(spec, ", ");
 }
 
 /**

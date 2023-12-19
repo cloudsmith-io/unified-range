@@ -34,7 +34,7 @@ function isUnifiedRange(rng) {
 }
 
 function transformToSemver(unifiedSpec, separator) {
-  const semverOperators = { lt: "<", lte: "<=", gt: ">", gte: ">=" };
+  const operators = { lt: "<", lte: "<=", gt: ">", gte: ">=" };
 
   if (isSemverRange(unifiedSpec)) {
     throw new Error("Version ranges seem to already be semver");
@@ -57,13 +57,13 @@ function transformToSemver(unifiedSpec, separator) {
       if (restriction.lowerBound.version === restriction.upperBound.version) {
         semvers.push(`${restriction.upperBound}`);
       } else {
-        let gtGte = semverOperators["gt"];
+        let gtGte = operators.gt;
         if (restriction.hasInclusiveLower) {
-          gtGte = semverOperators["gte"];
+          gtGte = operators.gte;
         }
-        let ltLte = semverOperators["lt"];
+        let ltLte = operators.lt;
         if (restriction.hasInclusiveUpper) {
-          ltLte = semverOperators["lte"];
+          ltLte = operators.lte;
         }
         semvers.push(
           `${gtGte}${restriction.lowerBound}${separator}${ltLte}${restriction.upperBound}`
@@ -71,18 +71,18 @@ function transformToSemver(unifiedSpec, separator) {
       }
     } else {
       if (restriction.upperBound.version && !restriction.lowerBound.version) {
-        let ltLte = semverOperators["lt"];
+        let ltLte = operators.lt;
         if (restriction.hasInclusiveUpper) {
-          ltLte = semverOperators["lte"];
+          ltLte = operators.lte;
         }
         semvers.push(`${ltLte}${restriction.upperBound}`);
       } else if (
         restriction.lowerBound.version &&
         !restriction.upperBound.version
       ) {
-        let gtGte = semverOperators["gt"];
+        let gtGte = operators.gt;
         if (restriction.hasInclusiveLower) {
-          gtGte = semverOperators["gte"];
+          gtGte = operators.gte;
         }
         semvers.push(`${gtGte}${restriction.lowerBound}`);
       } else {
