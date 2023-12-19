@@ -4,12 +4,10 @@ const semverOperators = { lt: "<", lte: "<=", gt: ">", gte: ">=", eq: "=" };
 const unifiedOperators = { lt: ")", lte: "]", gt: "(", gte: "[" };
 
 function isUnifiedOps(rng) {
-  const unifiedOperators = { lt: "<", lte: "<=", gt: ">", gte: ">=" };
   return Object.values(unifiedOperators).some((op) => rng.includes(op));
 }
 
 function isSemverOps(rng) {
-  const semverOperators = { lt: "<", lte: "<=", gt: ">", gte: ">=" };
   return Object.values(semverOperators).some((op) => rng.includes(op));
 }
 

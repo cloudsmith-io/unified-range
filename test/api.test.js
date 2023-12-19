@@ -13,8 +13,8 @@ describe("Test unified-range API", () => {
     const results = [];
     semverRanges.forEach((rng) => {
       const unified = api.fromSemver(rng);
-      const semverAgain = api.toSemver(String(unified));
-      results.push(String(semverAgain));
+      const semverAgain = api.toSemver(unified);
+      results.push(semverAgain);
     });
     expect(results).toEqual(expectedSemverRanges);
   });
