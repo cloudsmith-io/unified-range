@@ -196,8 +196,10 @@ function notIncludedVersions(orderedVersionList, rangesList) {
   for (const rng of rangesList) {
     for (const rst of rng.constraints) {
       const [lower, upper] = rst.bounds;
-
-      if (lower === upper) {
+      if (
+        lower.version === upper.version &&
+        lower.inclusive === upper.inclusive
+      ) {
         if (!lower.version && !upper.version) {
           return [];
         }
@@ -249,11 +251,20 @@ function notIncludedVersions(orderedVersionList, rangesList) {
     }
   }
 
-  let indToRemove =
-    rstIndices.length > 0 ? new Set([...rstIndices]) : new Set();
+  const indToRemove = new Set();
+  for (const set of rstIndices) {
+    for (const element of set) {
+      indToRemove.add(element);
+    }
+  }
 
-  let notIncluded = orderedVersionList.filter((v, i) => !indToRemove.has(i));
-  return notIncluded;
+  return orderedVersionList.filter((v, i) => !indToRemove.has(i));
+}
+
+function arrayWithout(original, toRemove) {
+  return original.filter((el) => {
+    return !toRemove.includes(el);
+  });
 }
 
 module.exports = {
@@ -266,4 +277,5 @@ module.exports = {
   transformToSemver,
   createFromSemver,
   notIncludedVersions,
+  arrayWithout,
 };

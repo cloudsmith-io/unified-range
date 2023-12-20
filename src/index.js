@@ -47,7 +47,7 @@ function unifiedRange(spec) {
  * @param {string[]} ranges
  * @return {string[]} ordered list of versions
  */
-function filterVersions(ascVersions, ranges) {
+function filterVersions(ascVersions, ranges, returnMatches = true) {
   const rngsUnified = [];
   for (const rng of ranges) {
     if (utils.isSemverRange(rng)) {
@@ -58,7 +58,13 @@ function filterVersions(ascVersions, ranges) {
       throw new Error(`Not a valid semver or unified/maven range - (${rng})`);
     }
   }
-  return utils.notIncludedVersions(ascVersions, rngsUnified);
+
+  const notIncluded = utils.notIncludedVersions(ascVersions, rngsUnified);
+  if (returnMatches) {
+    return utils.arrayWithout(ascVersions, notIncluded);
+  } else {
+    return notIncluded;
+  }
 }
 
 /**
@@ -68,13 +74,18 @@ function filterVersions(ascVersions, ranges) {
  * @param {string[]} ranges
  * @return {string} minimalVersion
  */
-function nextFilteredVersion(currentVersion, ascVersions, ranges) {
+function nextFilteredVersion(
+  currentVersion,
+  ascVersions,
+  ranges,
+  returnMatches = true
+) {
   if (!ascVersions.includes(currentVersion)) {
-    throw new Error("current_version given is not part of asc_version");
+    throw new Error("currentVersion given is not part of asc_version");
   }
   let minimalVersion = null;
   const indexCurrentVersion = ascVersions.indexOf(currentVersion);
-  const filteredVersions = filterVersions(ascVersions, ranges);
+  const filteredVersions = filterVersions(ascVersions, ranges, returnMatches);
   for (const v of filteredVersions) {
     if (indexCurrentVersion <= ascVersions.indexOf(v)) {
       minimalVersion = v;
@@ -90,8 +101,8 @@ function nextFilteredVersion(currentVersion, ascVersions, ranges) {
  * @param {string[]} ranges
  * @return {string} first version not satisfying any range
  */
-function maximumFilteredVersion(ascVersions, ranges) {
-  const filteredVersions = filterVersions(ascVersions, ranges);
+function maximumFilteredVersion(ascVersions, ranges, returnMatches = true) {
+  const filteredVersions = filterVersions(ascVersions, ranges, returnMatches);
   if (filteredVersions.length > 0) {
     return filteredVersions[filteredVersions.length - 1];
   } else {

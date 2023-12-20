@@ -125,7 +125,7 @@ const expectedComparatorTrimmed = [
   ">=2.3.0 <=2.3.10",
 ];
 
-describe("Test createFromSemver", () => {
+describe("createFromSemver", () => {
   test("should match expected version range", () => {
     const results = testNpmSemverRanges.map((semver) =>
       utils.createFromSemver(semver).toString()
@@ -134,7 +134,7 @@ describe("Test createFromSemver", () => {
   });
 });
 
-describe("Test transformToSemver", () => {
+describe("transformToSemver", () => {
   test("should match expected npm semver range", () => {
     const results = expectedVersionRange.map((unified) =>
       utils.transformToSemver(unified, " ")
@@ -150,21 +150,21 @@ describe("Test transformToSemver", () => {
   });
 });
 
-describe("Test cleanSemver", () => {
+describe("cleanSemver", () => {
   test("should match expected clean semver", () => {
     const results = beforeClean.map((semver) => utils.cleanSemver(semver));
     expect(results).toEqual(expectedCleanSemver);
   });
 });
 
-describe("Test comparatorTrim", () => {
+describe("comparatorTrim", () => {
   test("should match expected comparator trimmed results", () => {
     const results = beforeTrim.map((semver) => utils.comparatorTrim(semver));
     expect(results).toEqual(expectedComparatorTrimmed);
   });
 });
 
-describe("Test transformToSemverFailure", () => {
+describe("transformToSemverFailure", () => {
   test("should throw expected exception", () => {
     testNpmSemverRanges.forEach((semver) => {
       expect(() => {
@@ -174,7 +174,7 @@ describe("Test transformToSemverFailure", () => {
   });
 });
 
-describe("Test createFromSemverFailure", () => {
+describe("createFromSemverFailure", () => {
   test("should throw expected exception", () => {
     expectedVersionRange.forEach((unified) => {
       expect(() => {
