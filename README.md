@@ -1,6 +1,6 @@
 # unified-range
 
-A port of the [`unified-ranged`](https://github.com/snyk/unified-range) python package. The library converts input semver ranges to a uniform model, and the other way around, providing objects that are easier to use programmatically. The API of the package has been changed slightly from the original package as documented below.
+A port of the [`unified-range`](https://github.com/snyk/unified-range) python package. The library converts input semver ranges to a uniform model, and the other way around, providing objects that are easier to use programmatically. The API of the package has been changed slightly from the original package as documented below.
 
 ## Examples of supported ranges
 
@@ -146,7 +146,7 @@ Uniform string structure example: (,1.2.3)
 
 ## References and prior works
 
-This library was ported from the [`unified-ranged`](https://github.com/snyk/unified-range) python package. That package was built with the following:
+This library was ported from the [`unified-range`](https://github.com/snyk/unified-range) python package. That package was built with the following:
 
 1. Maven’s VersionRange:
    [model](https://github.com/apache/maven/tree/master/maven-artifact/src/main/java/org/apache/maven/artifact/versioning) and [spec](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html) of maven.
